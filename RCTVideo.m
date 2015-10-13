@@ -293,7 +293,7 @@ static NSString *const playbackLikelyToKeepUpKeyPath = @"playbackLikelyToKeepUp"
 
 - (void)setPaused:(BOOL)paused
 {
-  if (paused) {
+  if (_player.rate == 0.0) {
     [self stopProgressTimer];
     [_player setRate:0.0];
   } else {
@@ -409,9 +409,11 @@ static NSString *const playbackLikelyToKeepUpKeyPath = @"playbackLikelyToKeepUp"
   _prevProgressUpdateTime = nil;
 
   [_player pause];
+
   _player = nil;
 
   [_playerView removeFromSuperview];
+
   _playerView = nil;
 
   [self removePlayerItemObservers];
